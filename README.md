@@ -1,6 +1,6 @@
 # COM526_AE2_Sudoku_Solver
 
-# Installation
+## Installation
 Run the ```prepare_venv.bat``` script to create a python virtual environment and install the necessary libraries for the Sudoku solver.
 
 Add a ```puzzles.csv``` file to the ```data``` directory where each line has the following structure:
@@ -20,10 +20,10 @@ Add a ```puzzles.csv``` file to the ```data``` directory where each line has the
 Worked example:
 ```3000001,.......12....35......6...7.7.....3.....4..8..1...........12.....8.....4..5....6..,673894512912735486845612973798261354526473891134589267469128735287356149351947628```
 
-# Running the Solver
+## Running the Solver
 Run the ```run_solver.bat``` script to get the solver to attempt all of the puzzles in ```data/puzzles.csv```
 
-# Getting Additional Puzzles
+## Getting Additional Puzzles
 There are a number of large puzzle sets on Kaggle
 * [1,000,000 puzzles](https://www.kaggle.com/bryanpark/sudoku)
 * [3,000,000 puzzles](https://www.kaggle.com/radcliffe/3-million-sudoku-puzzles-with-ratings)
