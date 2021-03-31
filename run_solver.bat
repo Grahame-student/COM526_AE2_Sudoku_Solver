@@ -1,6 +1,6 @@
 call venv\Scripts\activate
 
-python main.py
+rem python main.py
 
 call deactivate
 pause

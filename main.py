@@ -11,20 +11,22 @@ def main():
     puzzle_total = len(puzzle_list)
     for puzzle in puzzle_list:
         puzzle_count += 1
-        all_values = puzzle.rstrip().split(',')
+        all_values = puzzle.rstrip().split(",")
         grid = SudokuGrid(all_values[1], base_domain)
 
         while grid.cull():
             pass
-        if grid.result() == 'Solved':
+        if grid.result() == "Solved":
             solved += 1
         if puzzle_count % 1000 == 0:
-            print(f'{puzzle_count} / {puzzle_total} - solved {solved} / {puzzle_total} - solve rate '
-                  f'{((solved / puzzle_count) * 100):.2f}%')
+            print(
+                f"{puzzle_count} / {puzzle_total} - solved {solved} / {puzzle_total} - solve rate "
+                f"{((solved / puzzle_count) * 100):.2f}%"
+            )
 
 
 def get_data(path):
-    with open(path, 'r') as data_file:
+    with open(path, "r") as data_file:
         return data_file.readlines()
 
 

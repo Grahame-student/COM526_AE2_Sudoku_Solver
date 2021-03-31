@@ -1,5 +1,3 @@
-
-
 class SudokuGrid:
     def __init__(self, puzzle, domain):
         self.start = puzzle
@@ -8,16 +6,18 @@ class SudokuGrid:
         self.grid = SudokuGrid._set_peers(self.grid)
 
     def __str__(self):
-        result = ''
+        result = ""
         for chunk in SudokuGrid._split_into_x_chunks(self.solution):
-            result += f'{chunk}\n'
+            result += f"{chunk}\n"
         return result
 
     @staticmethod
-    def _split_into_x_chunks(string, chunk_size=9):  # we assume here that x is an int and > 0
+    def _split_into_x_chunks(
+        string, chunk_size=9
+    ):  # we assume here that x is an int and > 0
         size = len(string)
         for pos in range(0, size, chunk_size):
-            yield string[pos:pos + chunk_size]
+            yield string[pos : pos + chunk_size]
 
     @staticmethod
     def _get_grid(puzzle, domain):
@@ -32,12 +32,12 @@ class SudokuGrid:
         """
         grid = {}
         cell_id = 0
-        puzzle = puzzle.replace('.', '0')
+        puzzle = puzzle.replace(".", "0")
         for value in puzzle:
             grid[cell_id] = {
-                'id': cell_id,
-                'peers': set(),
-                'domains': domain[:] if value == '0' else [int(value)]
+                "id": cell_id,
+                "peers": set(),
+                "domains": domain[:] if value == "0" else [int(value)],
             }
             cell_id += 1
         return grid
@@ -48,17 +48,17 @@ class SudokuGrid:
             cells[key] = SudokuGrid._set_row_peers(cell)
             cells[key] = SudokuGrid._set_col_peers(cell)
             cells[key] = SudokuGrid._set_box_peers(cell)
-            if (len(cell['peers'])) != 20:
+            if (len(cell["peers"])) != 20:
                 print(f'id: {cell["id"]} - {cell["peers"]}')
         return cells
 
     @staticmethod
     def _set_row_peers(cell):
-        row = SudokuGrid._get_row(cell['id'])
+        row = SudokuGrid._get_row(cell["id"])
         for col in range(9):
             cell_id = (row * 9) + col
-            if cell_id != cell['id']:
-                cell['peers'].add(cell_id)
+            if cell_id != cell["id"]:
+                cell["peers"].add(cell_id)
         return cell
 
     @staticmethod
@@ -67,11 +67,11 @@ class SudokuGrid:
 
     @staticmethod
     def _set_col_peers(cell):
-        col = SudokuGrid._get_col(cell['id'])
+        col = SudokuGrid._get_col(cell["id"])
         for row in range(9):
             cell_id = (row * 9) + col
-            if cell_id != cell['id']:
-                cell['peers'].add(cell_id)
+            if cell_id != cell["id"]:
+                cell["peers"].add(cell_id)
         return cell
 
     @staticmethod
@@ -80,14 +80,14 @@ class SudokuGrid:
 
     @staticmethod
     def _set_box_peers(cell):
-        box_row = SudokuGrid._get_row(cell['id']) // 3
-        box_col = SudokuGrid._get_col(cell['id']) // 3
+        box_row = SudokuGrid._get_row(cell["id"]) // 3
+        box_col = SudokuGrid._get_col(cell["id"]) // 3
 
         for row in range((box_row * 3), (box_row * 3) + 3):
             for col in range((box_col * 3), (box_col * 3) + 3):
                 cell_id = (row * 9) + col
-                if cell_id != cell['id']:
-                    cell['peers'].add(cell_id)
+                if cell_id != cell["id"]:
+                    cell["peers"].add(cell_id)
         return cell
 
     def cull(self):
@@ -98,23 +98,23 @@ class SudokuGrid:
 
     def cull_peers(self, cell):
         changed = False
-        if len(cell['domains']) == 1:
-            for peer in cell['peers']:
-                if cell['domains'][0] in self.grid[peer]['domains']:
-                    self.grid[peer]['domains'].remove(cell['domains'][0])
+        if len(cell["domains"]) == 1:
+            for peer in cell["peers"]:
+                if cell["domains"][0] in self.grid[peer]["domains"]:
+                    self.grid[peer]["domains"].remove(cell["domains"][0])
                     changed = True
         return changed
 
     def display_state(self):
         for row in range(9):
-            row_string = ''
+            row_string = ""
             for col in range(9):
                 cell_id = (row * 9) + col
-                row_string += str(self.grid[cell_id]['domains'])
-            print(f'{row_string}')
+                row_string += str(self.grid[cell_id]["domains"])
+            print(f"{row_string}")
 
     def result(self):
         for key, cell in self.grid.items():
-            if len(cell['domains']) > 1:
-                return 'Unsolved'
-        return 'Solved'
+            if len(cell["domains"]) > 1:
+                return "Unsolved"
+        return "Solved"
