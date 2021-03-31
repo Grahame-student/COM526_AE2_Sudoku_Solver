@@ -1,4 +1,5 @@
 # COM526_AE2_Sudoku_Solver
+![Lint Project](https://github.com/Grahame-student/COM526_AE2_Sudoku_Solver/workflows/Lint%20Project/badge.svg)
 
 ## Installation
 Run the ```prepare_venv.bat``` script to create a python virtual environment and install the necessary libraries for the Sudoku solver.
