@@ -22,3 +22,9 @@ Worked example:
 
 # Running the Solver
 Run the ```run_solver.bat``` script to get the solver to attempt all of the puzzles in ```data/puzzles.csv```
+
+# Getting Additional Puzzles
+There are a number of large puzzle sets on Kaggle
+* [1,000,000 puzzles](https://www.kaggle.com/bryanpark/sudoku)
+* [3,000,000 puzzles](https://www.kaggle.com/radcliffe/3-million-sudoku-puzzles-with-ratings)
+* [9,000,000 puzzles](https://www.kaggle.com/rohanrao/sudoku)
