@@ -20,7 +20,8 @@ def main():
             solved += 1
         if puzzle_count % 1000 == 0:
             print(
-                f"{puzzle_count} / {puzzle_total} - solved {solved} / {puzzle_total} - solve rate "
+                f"{puzzle_count} / {puzzle_total} - "
+                f"solved {solved} / {puzzle_total} - solve rate "
                 f"{((solved / puzzle_count) * 100):.2f}%"
             )
 

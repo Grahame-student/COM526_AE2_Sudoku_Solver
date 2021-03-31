@@ -23,12 +23,15 @@ class SudokuGrid:
     def _get_grid(puzzle, domain):
         """
         Create the game grid from the puzzle string and domain
-        Cells that are zero are empty and will be set to a list of all the domain values
-        Cells that are non-zero are solved and are therefore set to a list containing just that value
+        - Cells that are zero are empty and will be set to a list of all the domain
+          values
+        - Cells that are non-zero are solved and are therefore set to a list containing
+          just that value
         No culling is carried out at this stage
         :param puzzle: String representation of the puzzle starting state
         :param domain: List of all the possible values that each cell can be set to
-        :return: A list of lists, where each sub-list represents the values that a cell could be set to
+        :return: A list of lists, where each sub-list represents the values that a cell
+                 could be set to
         """
         grid = {}
         cell_id = 0
