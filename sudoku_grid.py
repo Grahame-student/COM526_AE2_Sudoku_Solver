@@ -17,7 +17,7 @@ class SudokuGrid:
     ):  # we assume here that x is an int and > 0
         size = len(string)
         for pos in range(0, size, chunk_size):
-            yield string[pos: pos + chunk_size]
+            yield string[pos : pos + chunk_size]
 
     @staticmethod
     def _get_grid(puzzle, domain):
