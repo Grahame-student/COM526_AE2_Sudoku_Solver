@@ -3,6 +3,7 @@ from copy import deepcopy
 
 class SudokuGrid:
     def __init__(self, puzzle):
+        self.count = 0
         self.base_domain = [1, 2, 3, 4, 5, 6, 7, 8, 9]
         self.start = puzzle
         self.grid = self._get_grid(puzzle)
@@ -160,3 +161,6 @@ class SudokuGrid:
             if len(cell["domains"]) == 1:
                 cells.pop(key)
         return cells
+
+    def setCount(self, count):
+        self.count = count

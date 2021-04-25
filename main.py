@@ -24,9 +24,9 @@ def main():
 
         if solved:
             solved_count += 1
-            print("Solution")
+            print(f"Solution - {solution.count} iterations")
         else:
-            print("Failed to solve")
+            print(f"Failed to solve after {solution.count} iterations")
 
         print(solution)
 

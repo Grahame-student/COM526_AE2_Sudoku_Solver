@@ -10,6 +10,7 @@ class TreeNode:
         self.cells = None
 
     def find_solution(self, grid):
+        TreeNode.count += 1
         self.grid = SudokuGrid(grid._get_puzzle_state())
         self.apply_constraints()
         result = (self.grid.result() == "Solved")
@@ -26,9 +27,9 @@ class TreeNode:
                     result, solution = self.children[-1].find_solution(self.grid)
                     if solution.constraints_broken():
                         self.children.pop(-1)
-                    #print(f'key:{cell["id"]} - option:{option} - state:{new_grid._get_puzzle_state()}')
                     if result:
                         self.grid = solution
+                        self.grid.setCount(TreeNode.count)
                         break
                 if result:
                     break
