@@ -139,7 +139,7 @@ class SudokuGrid:
         """
         Create a string representing the current state of the puzzle. Each character shows the state of a single cell
         A number from 1-9 shows a solved cell and a '.' character shows an unsolved cell
-        :return: 
+        :return:
         """
         solution = ""
         for key, cell in self.grid.items():

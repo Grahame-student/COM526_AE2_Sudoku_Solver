@@ -19,15 +19,8 @@ def main():
         all_values = puzzle.rstrip().split(",")
         grid = SudokuGrid(all_values[1], base_domain)
 
-        before_grid = deepcopy(grid)
         while grid.cull():
             pass
-
-        print("Before")
-        print(before_grid)
-
-        print("After")
-        print(grid)
 
         if grid.result() == "Solved":
             solved += 1
