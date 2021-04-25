@@ -1,5 +1,5 @@
-from copy import deepcopy
 from sudoku_grid import SudokuGrid
+from tree_node import TreeNode
 
 
 # Cull only - solve rate: (31k solved / 3m puzzles) ~1%
@@ -10,7 +10,7 @@ def main():
 
     puzzle_list = get_data("data/puzzles.csv")
 
-    solved = 0
+    solved_count = 0
     base_domain = [1, 2, 3, 4, 5, 6, 7, 8, 9]
     puzzle_count = 0
     puzzle_total = len(puzzle_list)
@@ -19,23 +19,25 @@ def main():
         all_values = puzzle.rstrip().split(",")
         grid = SudokuGrid(all_values[1], base_domain)
 
-        while grid.cull():
-            pass
+        root_node = TreeNode()
+        solved, solution = root_node.find_solution(grid)
 
-        if grid.result() == "Solved":
-            solved += 1
+        if solved:
+            solved_count += 1
+            print("Solution")
+            print(solution)
         if puzzle_count % 1000 == 0:
             print(
                 f"{puzzle_count} / {puzzle_total} - "
-                f"solved {solved} / {puzzle_total} - solve rate "
-                f"{((solved / puzzle_count) * 100):.2f}%"
+                f"solved {solved_count} / {puzzle_total} - solve rate "
+                f"{((solved_count / puzzle_count) * 100):.2f}%"
             )
 
 
 def get_data(path):
     """
-
-    :param path:
+    Read in the entire set of puzzles from the specified path
+    :param path: absolute
     :return:
     """
     with open(path, "r") as data_file:

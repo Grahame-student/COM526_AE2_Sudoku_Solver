@@ -1,3 +1,6 @@
+from copy import deepcopy
+
+
 class SudokuGrid:
     def __init__(self, puzzle, domain):
         self.start = puzzle
@@ -117,11 +120,11 @@ class SudokuGrid:
             for col in range(9):
                 cell_id = (row * 9) + col
                 row_string += str(self.grid[cell_id]["domains"])
-            print(f"{row_string}")
+            # print(f"{row_string}")
 
     def result(self):
         for key, cell in self.grid.items():
-            if len(cell["domains"]) > 1:
+            if len(cell["domains"]) > 1 or len(cell["domains"]) == 0:
                 return "Unsolved"
         return "Solved"
 
@@ -148,3 +151,13 @@ class SudokuGrid:
             else:
                 solution += "."
         return solution
+
+    def set_cell_value(self, cell, value):
+        self.grid[cell]["domains"] = [value]
+
+    def get_unsolved_cells(self):
+        cells = deepcopy(self.grid)
+        for key, cell in self.grid.items():
+            if len(cell["domains"]) == 1:
+                cells.pop(key)
+        return cells
