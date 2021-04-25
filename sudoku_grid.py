@@ -1,13 +1,12 @@
 class SudokuGrid:
     def __init__(self, puzzle, domain):
         self.start = puzzle
-        self.solution = puzzle
         self.grid = SudokuGrid._get_grid(puzzle, domain)
         self.grid = SudokuGrid._set_peers(self.grid)
 
     def __str__(self):
         result = ""
-        for chunk in SudokuGrid._split_into_x_chunks(self.solution):
+        for chunk in SudokuGrid._split_into_x_chunks(self._get_puzzle_state()):
             result += f"{chunk}\n"
         return result
 
@@ -94,12 +93,16 @@ class SudokuGrid:
         return cell
 
     def cull(self):
+        """
+        For each solved cell remove the known value from that cell's peer's domain
+        :return: True if any culling has occurred, False otherwise
+        """
         changed = False
         for key, cell in self.grid.items():
-            changed |= self.cull_peers(cell)
+            changed |= self._cull_peers(cell)
         return changed
 
-    def cull_peers(self, cell):
+    def _cull_peers(self, cell):
         changed = False
         if len(cell["domains"]) == 1:
             for peer in cell["peers"]:
@@ -121,3 +124,27 @@ class SudokuGrid:
             if len(cell["domains"]) > 1:
                 return "Unsolved"
         return "Solved"
+
+    def constraints_broken(self):
+        """
+        Check to see if the constraints of the problem have been broken
+        :return: True if no further options remain in the domain, False otherwise
+        """
+        for key, cell in self.grid.items():
+            if len(cell["domains"]) == 0:
+                return True
+        return False
+
+    def _get_puzzle_state(self):
+        """
+        Create a string representing the current state of the puzzle. Each character shows the state of a single cell
+        A number from 1-9 shows a solved cell and a '.' character shows an unsolved cell
+        :return: 
+        """
+        solution = ""
+        for key, cell in self.grid.items():
+            if len(cell["domains"]) == 1:
+                solution += str(cell["domains"][0])
+            else:
+                solution += "."
+        return solution

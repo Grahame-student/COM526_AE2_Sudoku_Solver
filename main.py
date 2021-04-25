@@ -1,8 +1,13 @@
+from copy import deepcopy
 from sudoku_grid import SudokuGrid
 
 
 # Cull only - solve rate: (31k solved / 3m puzzles) ~1%
 def main():
+    """
+
+    """
+
     puzzle_list = get_data("data/puzzles.csv")
 
     solved = 0
@@ -14,8 +19,16 @@ def main():
         all_values = puzzle.rstrip().split(",")
         grid = SudokuGrid(all_values[1], base_domain)
 
+        before_grid = deepcopy(grid)
         while grid.cull():
             pass
+
+        print("Before")
+        print(before_grid)
+
+        print("After")
+        print(grid)
+
         if grid.result() == "Solved":
             solved += 1
         if puzzle_count % 1000 == 0:
@@ -27,6 +40,11 @@ def main():
 
 
 def get_data(path):
+    """
+
+    :param path:
+    :return:
+    """
     with open(path, "r") as data_file:
         return data_file.readlines()
 
