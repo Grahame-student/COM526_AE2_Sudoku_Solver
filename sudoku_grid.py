@@ -2,9 +2,10 @@ from copy import deepcopy
 
 
 class SudokuGrid:
-    def __init__(self, puzzle, domain):
+    def __init__(self, puzzle):
+        self.base_domain = [1, 2, 3, 4, 5, 6, 7, 8, 9]
         self.start = puzzle
-        self.grid = SudokuGrid._get_grid(puzzle, domain)
+        self.grid = self._get_grid(puzzle)
         self.grid = SudokuGrid._set_peers(self.grid)
 
     def __str__(self):
@@ -21,8 +22,7 @@ class SudokuGrid:
         for pos in range(0, size, chunk_size):
             yield string[pos : pos + chunk_size]
 
-    @staticmethod
-    def _get_grid(puzzle, domain):
+    def _get_grid(self, puzzle):
         """
         Create the game grid from the puzzle string and domain
         - Cells that are zero are empty and will be set to a list of all the domain
@@ -31,7 +31,6 @@ class SudokuGrid:
           just that value
         No culling is carried out at this stage
         :param puzzle: String representation of the puzzle starting state
-        :param domain: List of all the possible values that each cell can be set to
         :return: A list of lists, where each sub-list represents the values that a cell
                  could be set to
         """
@@ -42,7 +41,7 @@ class SudokuGrid:
             grid[cell_id] = {
                 "id": cell_id,
                 "peers": set(),
-                "domains": domain[:] if value == "0" else [int(value)],
+                "domains": self.base_domain[:] if value == "0" else [int(value)],
             }
             cell_id += 1
         return grid

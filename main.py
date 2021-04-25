@@ -11,21 +11,25 @@ def main():
     puzzle_list = get_data("data/puzzles.csv")
 
     solved_count = 0
-    base_domain = [1, 2, 3, 4, 5, 6, 7, 8, 9]
     puzzle_count = 0
     puzzle_total = len(puzzle_list)
     for puzzle in puzzle_list:
         puzzle_count += 1
         all_values = puzzle.rstrip().split(",")
-        grid = SudokuGrid(all_values[1], base_domain)
+        grid = SudokuGrid(all_values[1])
 
+        TreeNode.count = 0
         root_node = TreeNode()
         solved, solution = root_node.find_solution(grid)
 
         if solved:
             solved_count += 1
             print("Solution")
-            print(solution)
+        else:
+            print("Failed to solve")
+
+        print(solution)
+
         if puzzle_count % 1000 == 0:
             print(
                 f"{puzzle_count} / {puzzle_total} - "

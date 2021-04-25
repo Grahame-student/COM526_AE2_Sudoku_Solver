@@ -21,8 +21,7 @@ class TestTree(TestCase):
 
     def test_find_solution_returns_solved_grid(self):
         puzzle = "198543726643278591527619843914735268876192435235486179462351987381927654759864312"
-        base_domain = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-        grid = SudokuGrid(puzzle, base_domain)
+        grid = SudokuGrid(puzzle)
         root = TreeNode()
 
         solved, solution = root.find_solution(grid)
@@ -31,8 +30,7 @@ class TestTree(TestCase):
 
     def test_find_solution_solves_incomplete_puzzle_with_single_number_missing(self):
         puzzle = "19854372664327859152761984391473526887619243523548617946235198738192765475986431."
-        base_domain = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-        grid = SudokuGrid(puzzle, base_domain)
+        grid = SudokuGrid(puzzle)
         root = TreeNode()
 
         solved, solution = root.find_solution(grid)
@@ -49,9 +47,8 @@ class TestTree(TestCase):
             assert_that(solved, is_(False))
 
     def test_find_solution_solves_incomplete_puzzle_with_multiple_numbers_missing(self):
-        puzzle = "198543726643278591527619843914735268876192435235486179462351987381927654759864..."
-        base_domain = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-        grid = SudokuGrid(puzzle, base_domain)
+        puzzle = ".4.1..............653.....1.8.9..74...24..91.......2.8...562....1..7..6...4..1..3"
+        grid = SudokuGrid(puzzle)
         root = TreeNode()
 
         solved, solution = root.find_solution(grid)
