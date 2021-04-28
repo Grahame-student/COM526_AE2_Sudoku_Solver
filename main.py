@@ -1,3 +1,5 @@
+from timeit import default_timer as timer
+
 from sudoku_grid import SudokuGrid
 from tree_node import TreeNode
 
@@ -20,22 +22,25 @@ def main():
 
         TreeNode.count = 0
         root_node = TreeNode()
+        start = timer()
         solved, solution = root_node.find_solution(grid)
+        elapsed = timer() - start
 
         if solved:
             solved_count += 1
-            print(f"Solution - {solution.count} iterations")
+            result_string = f"{all_values[0]},Solved,{solution.count},{elapsed}"
         else:
-            print(f"Failed to solve after {solution.count} iterations")
+            result_string = f"{all_values[0]},Unsolved,{solution.count},{elapsed}"
 
-        print(solution)
+        print(result_string)
+        with open("results.csv", 'a') as results_file:
+            print(result_string, file=results_file)
 
-        if puzzle_count % 1000 == 0:
-            print(
-                f"{puzzle_count} / {puzzle_total} - "
-                f"solved {solved_count} / {puzzle_total} - solve rate "
-                f"{((solved_count / puzzle_count) * 100):.2f}%"
-            )
+        print(
+            f"{puzzle_count} / {puzzle_total} - "
+            f"solved {solved_count} / {puzzle_total} - solve rate "
+            f"{((solved_count / puzzle_count) * 100):.2f}%"
+        )
 
 
 def get_data(path):

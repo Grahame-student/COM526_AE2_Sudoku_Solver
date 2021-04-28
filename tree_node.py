@@ -11,6 +11,9 @@ class TreeNode:
 
     def find_solution(self, grid):
         TreeNode.count += 1
+        if TreeNode.count % 10000 == 0:
+            print(TreeNode.count)
+
         self.grid = SudokuGrid(grid._get_puzzle_state())
         self.apply_constraints()
         result = (self.grid.result() == "Solved")
