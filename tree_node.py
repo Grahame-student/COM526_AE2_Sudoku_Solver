@@ -5,7 +5,6 @@ class TreeNode:
     count = 0
 
     def __init__(self):
-        self.children = []
         self.grid = None
         self.cells = None
 
@@ -25,11 +24,9 @@ class TreeNode:
             while sorted_list:
                 cell = sorted_list.pop()[1]
                 for option in cell["domains"]:
-                    self.children.append(TreeNode())
+                    node = TreeNode()
                     self.grid.set_cell_value(cell["id"], option)
-                    result, solution = self.children[-1].find_solution(self.grid)
-                    if solution.constraints_broken():
-                        self.children.pop(-1)
+                    result, solution = node.find_solution(self.grid)
                     if result:
                         self.grid = solution
                         self.grid.setCount(TreeNode.count)
@@ -50,6 +47,3 @@ class TreeNode:
 
         sorted_options.sort(key=lambda tup: tup[0], reverse=True)
         return sorted_options
-
-    def _add_child(self, child_node):
-        self.children.append(child_node)
