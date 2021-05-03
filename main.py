@@ -10,7 +10,7 @@ def main():
 
     """
 
-    puzzle_list = get_data("data/puzzles.csv")
+    puzzle_list = get_data("data/demo.csv")
 
     solved_count = 0
     puzzle_count = 0

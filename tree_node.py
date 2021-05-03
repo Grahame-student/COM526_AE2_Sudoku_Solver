@@ -13,12 +13,14 @@ class TreeNode:
         if TreeNode.count % 10000 == 0:
             print(TreeNode.count)
 
-        self.grid = SudokuGrid(grid._get_puzzle_state())
+        self.grid = SudokuGrid(grid.get_puzzle_state())
         self.apply_constraints()
+
         result = (self.grid.result() == "Solved")
 
         if not self.grid.constraints_broken():
-            self.cells = grid.get_unsolved_cells()
+            self.cells = self.grid.get_unsolved_cells()
+
             sorted_list = self._get_sorted_options()
 
             while sorted_list:
@@ -29,7 +31,7 @@ class TreeNode:
                     result, solution = node.find_solution(self.grid)
                     if result:
                         self.grid = solution
-                        self.grid.setCount(TreeNode.count)
+                        self.grid.set_count(TreeNode.count)
                         break
                 if result:
                     break

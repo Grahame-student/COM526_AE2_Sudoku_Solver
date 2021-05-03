@@ -11,7 +11,7 @@ class SudokuGrid:
 
     def __str__(self):
         result = ""
-        for chunk in SudokuGrid._split_into_x_chunks(self._get_puzzle_state()):
+        for chunk in SudokuGrid._split_into_x_chunks(self.get_puzzle_state()):
             result += f"{chunk}\n"
         return result
 
@@ -120,7 +120,6 @@ class SudokuGrid:
             for col in range(9):
                 cell_id = (row * 9) + col
                 row_string += str(self.grid[cell_id]["domains"])
-            # print(f"{row_string}")
 
     def result(self):
         for key, cell in self.grid.items():
@@ -138,7 +137,7 @@ class SudokuGrid:
                 return True
         return False
 
-    def _get_puzzle_state(self):
+    def get_puzzle_state(self):
         """
         Create a string representing the current state of the puzzle. Each character shows the state of a single cell
         A number from 1-9 shows a solved cell and a '.' character shows an unsolved cell
@@ -162,5 +161,5 @@ class SudokuGrid:
                 cells.pop(key)
         return cells
 
-    def setCount(self, count):
+    def set_count(self, count):
         self.count = count
