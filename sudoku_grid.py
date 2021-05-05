@@ -166,6 +166,3 @@ class SudokuGrid:
             if len(cell["domains"]) == 1:
                 cells.pop(key)
         return cells
-
-    def set_count(self, count):
-        self.count = count

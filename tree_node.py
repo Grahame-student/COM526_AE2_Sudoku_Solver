@@ -18,28 +18,33 @@ class TreeNode:
 
         result = (self.grid.result() == "Solved")
         if result:
-            self.grid.set_count(TreeNode.count)
+            # Solved, succeed fast
             return result, self.grid
-        elif not self.grid.constraints_broken():
-            sorted_list = self._get_sorted_options()
-
-            while sorted_list:
-                cell = sorted_list.pop()[1]
-                for option in cell["domains"]:
-                    node = TreeNode()
-                    self.grid.set_cell_value(cell["id"], option)
-                    result, solution = node.find_solution(self.grid)
-                    if result:
-                        self.grid = solution
-                        break
-                if result:
-                    break
+        elif self.grid.constraints_broken():
+            # Constraints broken
+            pass
+        else:
+            # Unsolved, search for a valid solution
+            result = self._depth_first_search()
 
         return result, self.grid
 
     def _apply_constraints(self):
         while self.grid.cull():
             pass
+
+    def _depth_first_search(self):
+        sorted_list = self._get_sorted_options()
+        while sorted_list:
+            cell = sorted_list.pop()[1]
+            for option in cell["domains"]:
+                node = TreeNode()
+                self.grid.set_cell_value(cell["id"], option)
+                result, solution = node.find_solution(self.grid)
+                if result:
+                    self.grid = solution
+                    return True
+        return False
 
     def _get_sorted_options(self):
         self.cells = self.grid.get_unsolved_cells()
