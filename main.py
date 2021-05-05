@@ -28,12 +28,13 @@ def main():
 
         if solved:
             solved_count += 1
-            result_string = f"{all_values[0]},Solved,{solution.count},{elapsed}"
+            result_string = f"{all_values[0]},Solved,{TreeNode.count},{elapsed:.5f}"
         else:
-            result_string = f"{all_values[0]},Unsolved,{solution.count},{elapsed}"
+            result_string = f"{all_values[0]},Unsolved,{TreeNode.count},{elapsed:.5f}"
 
         print(result_string)
-        with open("results.csv", 'a') as results_file:
+        print(solution)
+        with open("results_new.csv", 'a') as results_file:
             print(result_string, file=results_file)
 
         print(

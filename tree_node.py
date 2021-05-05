@@ -14,13 +14,13 @@ class TreeNode:
             print(TreeNode.count)
 
         self.grid = SudokuGrid(grid.get_puzzle_state())
-        self.apply_constraints()
+        self._apply_constraints()
 
         result = (self.grid.result() == "Solved")
-
-        if not self.grid.constraints_broken():
-            self.cells = self.grid.get_unsolved_cells()
-
+        if result:
+            self.grid.set_count(TreeNode.count)
+            return result, self.grid
+        elif not self.grid.constraints_broken():
             sorted_list = self._get_sorted_options()
 
             while sorted_list:
@@ -31,18 +31,18 @@ class TreeNode:
                     result, solution = node.find_solution(self.grid)
                     if result:
                         self.grid = solution
-                        self.grid.set_count(TreeNode.count)
                         break
                 if result:
                     break
 
         return result, self.grid
 
-    def apply_constraints(self):
+    def _apply_constraints(self):
         while self.grid.cull():
             pass
 
     def _get_sorted_options(self):
+        self.cells = self.grid.get_unsolved_cells()
         sorted_options = []
         for key, cell in self.cells.items():
             sorted_options.append((len(cell["domains"]), cell))

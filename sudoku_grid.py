@@ -120,6 +120,7 @@ class SudokuGrid:
             for col in range(9):
                 cell_id = (row * 9) + col
                 row_string += str(self.grid[cell_id]["domains"])
+            print(row_string)
 
     def result(self):
         for key, cell in self.grid.items():
@@ -152,6 +153,11 @@ class SudokuGrid:
         return solution
 
     def set_cell_value(self, cell, value):
+        """
+        Reduces the domain list for the selected cell to a single value
+        :param cell: cell to solve
+        :param value: value to used for the solved value
+        """
         self.grid[cell]["domains"] = [value]
 
     def get_unsolved_cells(self):
