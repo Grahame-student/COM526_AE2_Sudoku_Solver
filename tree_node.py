@@ -9,14 +9,15 @@ class TreeNode:
         self.cells = None
 
     def find_solution(self, grid):
-        TreeNode.count += 1
-        if TreeNode.count % 10000 == 0:
-            print(TreeNode.count)
-
+        self._update_status()
         self.grid = SudokuGrid(grid.get_puzzle_state())
         self._apply_constraints()
 
+        # Check to see if the puzzle is solved
         result = (self.grid.result() == "Solved")
+
+        # If result is false then we need to differentiate between broken constraints
+        # and a valid, but unsolved puzzle as they need to be treated differently
         if result:
             # Solved, succeed fast
             return result, self.grid
@@ -28,6 +29,12 @@ class TreeNode:
             result = self._depth_first_search()
 
         return result, self.grid
+
+    @staticmethod
+    def _update_status():
+        TreeNode.count += 1
+        if TreeNode.count % 10000 == 0:
+            print(TreeNode.count)
 
     def _apply_constraints(self):
         while self.grid.cull():

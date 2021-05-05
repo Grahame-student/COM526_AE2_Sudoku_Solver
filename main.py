@@ -10,7 +10,7 @@ def main():
 
     """
 
-    puzzle_list = get_data("data/demo.csv")
+    puzzle_list = get_data("data/puzzles.csv")
 
     solved_count = 0
     puzzle_count = 0
@@ -34,7 +34,7 @@ def main():
 
         print(result_string)
         print(solution)
-        with open("results_new.csv", 'a') as results_file:
+        with open("results.csv", 'a') as results_file:
             print(result_string, file=results_file)
 
         print(
