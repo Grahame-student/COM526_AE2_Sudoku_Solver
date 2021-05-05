@@ -13,6 +13,7 @@ class TreeNode:
         self.grid = SudokuGrid(grid.get_puzzle_state())
         self._apply_constraints()
 
+        solved = self.grid.result()
         # Check to see if the puzzle is solved
         result = (self.grid.result() == "Solved")
 
@@ -22,6 +23,7 @@ class TreeNode:
             # Solved, succeed fast
             return result, self.grid
         elif self.grid.constraints_broken():
+            result = False
             # Constraints broken
             pass
         else:
